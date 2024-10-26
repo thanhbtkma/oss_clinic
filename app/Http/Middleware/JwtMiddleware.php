@@ -21,15 +21,13 @@
             $token = session('jwt_token');
 
             if (!$token) {
-                return redirect()->route('login');
+                return redirect()->route('login')->withErrors(['error' => 'Phiên làm việc đã kết thúc. Vui lòng đăng nhập lại']);
             }
 
             try {
                 JWTAuth::setToken($token)->authenticate();
-            } catch (TokenExpiredException $e) {
-                return redirect()->route('login')->withErrors(['error' => 'Session expired. Please log in again.']);
-            } catch (TokenInvalidException $e) {
-                return redirect()->route('login')->withErrors(['error' => 'Invalid session. Please log in again.']);
+            } catch (TokenExpiredException|TokenInvalidException $e) {
+                return redirect()->route('login')->withErrors(['error' => 'Phiên làm việc đã kết thúc. Vui lòng đăng nhập lại']);
             }
 
             return $next($request);
