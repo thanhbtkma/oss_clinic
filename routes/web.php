@@ -4,9 +4,12 @@
     use App\Http\Middleware\JwtMiddleware;
     use Illuminate\Support\Facades\Route;
 
-    Route::get('/', function () {
+//    Route::get('/', function () {
+//        return view('home.index');
+//    })->name('home')->middleware([JwtMiddleware::class]);
+    Route::get('/',function (){
         return view('home.index');
-    })->name('home')->middleware([JwtMiddleware::class]);
+    })->name('home');
     Route::get('/login', [AuthController::class, 'showLoginForm']);
     Route::post('/login', [AuthController::class, 'login']);
     Route::get('/register', [AuthController::class, 'showRegisterForm']);

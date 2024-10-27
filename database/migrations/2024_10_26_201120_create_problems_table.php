@@ -10,19 +10,18 @@
          */
         public function up(): void
         {
-            Schema::create('users', function (Blueprint $table) {
+            Schema::disableForeignKeyConstraints();
+
+            Schema::create('problems', function (Blueprint $table) {
                 $table->id()->primary();
-                $table->string('avatar')->nullable();
-                $table->string('email')->unique();
-                $table->string('full_name');
-                $table->date('birth_day')->nullable();
-                $table->enum('gender', ['male', 'female', 'other'])->nullable();
-                $table->bigInteger('address')->nullable();
-                $table->string('phone')->nullable();
-                $table->enum('role', ['admin', 'doctor', 'receptionist', 'patient'])->default('patient');
+                $table->bigInteger('encounter_id')->unsigned();
+                $table->foreign('encounter_id')->references('id')->on('encounters');
+                $table->bigInteger('problem');
                 $table->timestamps();  // includes 'created_at' and 'updated_at'
                 $table->softDeletes(); // includes 'deleted_at'
             });
+
+            Schema::enableForeignKeyConstraints();
         }
 
         /**
@@ -30,6 +29,6 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('users');
+            Schema::dropIfExists('problems');
         }
     };

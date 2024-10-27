@@ -14,7 +14,7 @@
 <div class="container-fluid flex-grow-1 d-flex">
     @include('shared/navigation')
     <div class="content flex-grow-1 p-3">
-        @include('shared/alerts')
+        @include('shared/error_modal')
         <main class="my-4">
             @yield('content')
         </main>

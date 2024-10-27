@@ -10,13 +10,18 @@
          */
         public function up(): void
         {
-            Schema::create('passwords', function (Blueprint $table) {
+            Schema::disableForeignKeyConstraints();
+
+            Schema::create('staff', function (Blueprint $table) {
                 $table->id()->primary();
                 $table->bigInteger('user_id')->unsigned();
-                $table->string('salt');
-                $table->string('password');
-                $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+                $table->foreign('user_id')->references('id')->on('users');
+                $table->bigInteger('experience');
+                $table->timestamps();  // includes 'created_at' and 'updated_at'
+                $table->softDeletes(); // includes 'deleted_at'
             });
+
+            Schema::enableForeignKeyConstraints();
         }
 
         /**
@@ -24,6 +29,6 @@
          */
         public function down(): void
         {
-            Schema::dropIfExists('password');
+            Schema::dropIfExists('staff');
         }
     };
