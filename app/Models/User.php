@@ -74,4 +74,19 @@
         {
             return [];
         }
+
+        public function getFullName(): string
+        {
+            return $this->full_name;
+        }
+
+        public function getAvatar(): string
+        {
+            return $this->avatar;
+        }
+
+        public function getRole(): string
+        {
+            return $this->role;
+        }
     }
