@@ -29,7 +29,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('patient') ? 'active' : '' }}">
                 <img src="{{ asset('images/patient.svg') }}" alt="patient" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="/patient">Bệnh nhân</a>
+                <a class="nav-link" href=" {{route('patient')}} ">Bệnh nhân</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('receptionist') ? 'active' : '' }}">
                 <img src="{{ asset('images/receptionist.svg') }}" alt="receptionist" class="me-2"
@@ -37,13 +37,18 @@
                 <a class="nav-link" href="/receptionist">Nhân viên</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('bill') ? 'active' : '' }}">
+                <img src="{{ asset('images/service.svg') }}" alt="service" class="me-2"
+                     style="width: 24px; height: 24px;">
+                <a class="nav-link" href=" {{ route('service') }}">Dịch vụ</a>
+            </li>
+            <li class="nav-item d-flex align-items-center {{ request()->is('bill') ? 'active' : '' }}">
                 <img src="{{ asset('images/bill.svg') }}" alt="bill" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
                 <a class="nav-link" href="/bill">Hoá đơn</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('report') ? 'active' : '' }}">
-                <img src="{{ asset('images/report.svg') }}" alt="report" class="me-2"
-                     style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
+                <img src="{{ asset('images/report_linechart.svg') }}" alt="report" class="me-2"
+                     style="width: 24px; height: 24px;">
                 <a class="nav-link" href="/report">Thống kê</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('profile') ? 'active' : '' }}">

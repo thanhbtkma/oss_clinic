@@ -21,7 +21,7 @@
             $token = session('jwt_token');
 
             if (!$token) {
-                return redirect()->route('login')->withErrors(['error' => 'Phiên làm việc đã kết thúc. Vui lòng đăng nhập lại']);
+                return redirect()->route('login');
             }
 
             try {

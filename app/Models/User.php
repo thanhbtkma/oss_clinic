@@ -3,6 +3,7 @@
     namespace App\Models;
 
     // use Illuminate\Contracts\Auth\MustVerifyEmail;
+    use App\Casts\EnumCast;
     use Database\Factories\UserFactory;
     use Illuminate\Database\Eloquent\Factories\HasFactory;
     use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -47,8 +48,8 @@
         {
             return [
                 'birth_day' => 'datetime',
-                'gender' => 'enum',
-                'role' => 'enum',
+                'gender' => EnumCast::class . ':App\Enums\Gender',
+                'role' => EnumCast::class . ':App\Enums\Role',
                 'created_at' => 'datetime',
                 'updated_at' => 'datetime',
                 'deleted_at' => 'datetime'
