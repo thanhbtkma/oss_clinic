@@ -21,19 +21,21 @@
                         <th scope="col">Số điện thoại</th>
                         <th scope="col">Chuyên khoa</th>
                         <th scope="col">Trạng thái</th>
+                        <th scope="col">Ghi chú</th>
                         <th scope="col">Hành động</th>
                     </tr>
                     </thead>
                     <tbody>
                     @if($doctors->isNotEmpty())
-                        @foreach($doctor as $key => $doctors)
+                        @foreach($doctors as $key => $doctor)
                             <tr>
                                 <th scope="row">{{ $key + 1 }}</th>
-                                <td>{{ $doctor->name }}</td>
-                                <td>{{ $doctor->email }}</td>
-                                <td>{{ $doctor->phone }}</td>
+                                <td>{{ $doctor->name() }}</td>
+                                <td>{{ $doctor->email() }}</td>
+                                <td>{{ $doctor->phone() }}</td>
                                 <td>{{ $doctor->specialization }}</td>
                                 <td>{{ $doctor->status }}</td>
+                                <td>{{$doctor->note}}</td>
                                 <td>
                                     <a href="{{ route('doctor.show', $doctor->id) }}" class="btn btn-primary">Xem</a>
                                     <a href="{{ route('doctor.edit', $doctor->id) }}" class="btn btn-success">Sửa</a>
@@ -53,7 +55,8 @@
         <!-- The Modal  Add doctor-->
         <div class="modal" id="add_doctor">
             <div class="modal-dialog modal-xl">
-                <form>
+                <form action="{{route('doctor')}}" method="post">
+                    @csrf
                     <div class="modal-content">
 
                         <!-- Modal Header -->
@@ -123,7 +126,7 @@
                                         <!-- Gender -->
                                         <div class="col">
                                             <label for="gender" class="form-label">Giới tính</label>
-                                            <select class="form-select" id="status" name="status" required>
+                                            <select class="form-select" id="gender" name="gender" required>
                                                 <option value="" selected>Chọn giới tính</option>
                                                 <option value="male">Nam</option>
                                                 <option value="female">Nữ</option>
@@ -148,83 +151,31 @@
                                     <button class="btn btn-secondary mt-2" type="button">Change Avatar</button>
                                 </div>
                             </div>
-                            <div>
-                                <div class="row align-items-center justify-content-between" style="margin-top: 20px">
-                                    <h4 class="col-auto">Trình độ</h4>
-                                    <button class="btn btn-primary col-auto" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#add_qualification">Thêm trình độ
-                                    </button>
+                            <div class="row">
+                                <div class="col">
+                                    <label for="degree" class="form-label">Bằng cấp</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="Bằng cấp" id="degree" name="degree"
+                                           required>
                                 </div>
-                                <div id="add_qualification" class="collapse">
-                                    <form action="{{route("add_qualification")}}" method="post">
-                                        <div class="row">
-                                            <div class="col">
-                                                <label for="degree" class="form-label">Bằng cấp</label>
-                                                <input type="text" class="form-control"
-                                                       placeholder="Bằng cấp" id="degree" name="degree"
-                                                       required>
-                                            </div>
-                                            <div class="col">
-                                                <label for="school" class="form-label">Trường</label>
-                                                <input type="text" class="form-control"
-                                                       placeholder="Trường" id="school" name="school"
-                                                       required>
-                                            </div>
-                                            <div class="col">
-                                                <label for="year" class="form-label">Năm tốt nghiệp</label>
-                                                <select class="form-select" id="year" name="year" required>
-                                                    <option value="" selected>Chọn năm</option>
-                                                    @for($i = date('Y'); $i >= 1900; $i--)
-                                                        <option value="{{ $i }}">{{ $i }}</option>
-                                                    @endfor
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="row justify-content-end mt-3">
-                                            <button class=" col-auto btn btn-primary me-2" type="submit"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#add_qualification">Lưu
-                                            </button>
-                                            <button class=" col-auto btn btn-outline-primary" type="button"
-                                                    data-bs-toggle="collapse"
-                                                    data-bs-target="#add_qualification">Huỷ
-                                            </button>
-                                        </div>
-                                    </form>
+                                <div class="col">
+                                    <label for="school" class="form-label">Trường</label>
+                                    <input type="text" class="form-control"
+                                           placeholder="Trường" id="school" name="school"
+                                           required>
                                 </div>
-                                <table class="table table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Bằng cấp</th>
-                                        <th scope="col">Trường</th>
-                                        <th scope="col">Năm tốt nghiệp</th>
-                                        <th scope="col">Hành động</th>
-                                    </thead>
-                                    <tbody>
-                                    @if(!isEmpty($qualifications))
-                                        @foreach($qualification as $key => $qualifications)
-                                            <tr>
-                                                <th scope="row">{{ $key + 1 }}</th>
-                                                <td>{{ $qualification->degree }}</td>
-                                                <td>{{ $qualification->school }}</td>
-                                                <td>{{ $qualification->year }}</td>
-                                                <td>
-                                                    <a href="{{ route('qualification.edit', $qualification->id) }}"
-                                                       class="btn btn-success">Sửa</a>
-                                                    <a href="{{ route('qualification.destroy', $qualification->id) }}"
-                                                       class="btn btn-danger">Xóa</a>
-                                                </td>
-                                            </tr>
-                                        @endforeach
-                                    @else
-                                        <tr>
-                                            <td colspan="5" class="text-center">Không có dữ liệu</td>
-                                        </tr>
-                                    @endif
-                                    </tbody>
-                                </table>
+                                <div class="col">
+                                    <label for="year" class="form-label">Năm tốt nghiệp</label>
+                                    <select class="form-select" id="year" name="year" required>
+                                        <option value="" selected>Chọn năm</option>
+                                        @for($i = date('Y'); $i >= 1900; $i--)
+                                            <option value="{{ $i }}">{{ $i }}</option>
+                                        @endfor
+                                    </select>
+                                </div>
                             </div>
+                            <label>Ghi chú</label>
+                            <textarea class="form-control" rows="5" id="note" name="note"></textarea>
                         </div>
 
                         <!-- Modal footer -->

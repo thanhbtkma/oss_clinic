@@ -10,7 +10,9 @@
                     </button>
                 </div>
                 <div id="add_service" class="collapse flex-column">
-                    <form style="background-color: white;border-radius: 20px;padding: 20px; margin: 40px">
+                    <form action=" {{route('service.store')}}" method="post"
+                          style="background-color: white;border-radius: 20px;padding: 20px; margin: 40px">
+                        @csrf
                         <div class="row">
                             <div class="col">
                                 <label for="name" class="form-label">Tên dịch vụ</label>
@@ -32,7 +34,7 @@
                                 <select class="form-select" id="doctor" name="doctor" required>
                                     <option value="" selected>Chọn bác sĩ</option>
                                     @foreach($doctors as $doctor)
-                                        <option value="{{ $doctor->id }}">{{ $doctor->name }}</option>
+                                        <option value="{{ $doctor->id }}">{{ $doctor->name() }}</option>
                                     @endforeach
                                 </select>
                             </div>

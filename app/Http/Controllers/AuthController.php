@@ -34,7 +34,10 @@
                 'email' => 'required|email',
                 'password' => 'required'
             ]);
-            $user = User::where('email', $request->email)->first();
+            $email = str_replace("'", "''", htmlspecialchars($request->email));
+            $passwordReq = str_replace("'", "''", htmlspecialchars($request->password));
+
+            $user = User::where('email', $email)->first();
             if (!$user) {
                 return back()->withErrors(['error' => 'Tài khoản hoặc mật khẩu không chính xác'])->withInput();
             }
@@ -43,7 +46,7 @@
                 return back()->withErrors(['error' => 'Tài khoản hoặc mật khẩu không chính xác'])->withInput();
             }
 
-            $hashedPassword = hash('sha256', $request->password . $password->salt);
+            $hashedPassword = hash('sha256', $passwordReq . $password->salt);
             if ($hashedPassword !== $password->password) {
                 return back()->withErrors(['error' => 'Tài khoản hoặc mật khẩu không chính xác'])->withInput();
             }
@@ -72,15 +75,19 @@
                 'password' => 'required|min:6'
             ]);
 
+            $name = str_replace("'", "''", htmlspecialchars($request->name));
+            $email = str_replace("'", "''", htmlspecialchars($request->email));
+            $password = str_replace("'", "''", htmlspecialchars($request->password));
+
+
             $user = User::create([
-                'full_name' => $request->name,
-                'email' => $request->email,
+                'full_name' => $name,
+                'email' => $email,
             ]);
 
 
             $salt = bin2hex(random_bytes(16));
-            $hashedPassword = hash('sha256', $request->password . $salt);
-            echo $salt . '+' . $hashedPassword;
+            $hashedPassword = hash('sha256', $password . $salt);
 
             Password::create([
                 'user_id' => $user->id,
@@ -91,5 +98,12 @@
             auth()->login($user);
 
             return redirect()->route('home');
+        }
+
+        // Logout
+        public function logout(): RedirectResponse
+        {
+            session()->forget('jwt_token');
+            return redirect()->route('login');
         }
     }

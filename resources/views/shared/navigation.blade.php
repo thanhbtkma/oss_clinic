@@ -14,7 +14,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('appointment') ? 'active' : '' }}">
                 <img src="{{ asset('images/appointment.svg') }}" alt="appointment" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="#">Lịch hẹn</a>
+                <a class="nav-link" href=" {{'appointment'}}">Lịch hẹn</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('encounter') ? 'active' : '' }}">
                 <img src="{{ asset('images/encounter.svg') }}" alt="encounter" class="me-2"
@@ -54,10 +54,10 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('profile') ? 'active' : '' }}">
                 <img src="{{ asset('images/circle_person.svg') }}" alt="profile" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="/profile">{{ Auth::user()->getFullName() }}</a>
+                <a class="nav-link" href="{{route('logout')}}">{{ Auth::user()->getFullName() }}</a>
             </li>
         </ul>
-    @elseif(Auth::user() && Auth::user()->getRole() === "Doctor")
+    @elseif(Auth::user() && Auth::user()->getRole() === "doctor")
         <ul class="nav flex-column">
             <li class="nav-item d-flex align-items-center {{ request()->is('home') ? 'active' : '' }}">
                 <img src="{{ asset('images/dashboard.svg') }}" alt="dashboard" class="me-2"
@@ -67,7 +67,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('appointment') ? 'active' : '' }}">
                 <img src="{{ asset('images/appointment.svg') }}" alt="dashboard" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="#">Lịch hẹn</a>
+                <a class="nav-link" href=" {{'appointment'}}">Lịch hẹn</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('encounter') ? 'active' : '' }}">
                 <img src="{{ asset('images/encounter.svg') }}" alt="encounter" class="me-2"
@@ -77,10 +77,10 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('profile') ? 'active' : '' }}">
                 <img src="{{ asset('images/circle_person.svg') }}" alt="profile" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="/profile">{{ Auth::user()->getFullName() }}</a>
+                <a class="nav-link" href=" {{route('logout')}}">{{ Auth::user()->getFullName() }}</a>
             </li>
         </ul>
-    @elseif(Auth::user() && Auth::user()->getRole() === "Receptionist")
+    @elseif(Auth::user() && Auth::user()->getRole() === "receptionist")
         <ul class="nav flex-column">
             <li class="nav-item d-flex align-items-center {{ request()->is('home') ? 'active' : '' }}">
                 <img src="{{ asset('images/dashboard.svg') }}" alt="dashboard" class="me-2"
@@ -90,7 +90,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('appointment') ? 'active' : '' }}">
                 <img src="{{ asset('images/appointment.svg') }}" alt="dashboard" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="#">Lịch hẹn</a>
+                <a class="nav-link" href=" {{route('appointment')}}">Lịch hẹn</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('bill') ? 'active' : '' }}">
                 <img src="{{ asset('images/bill.svg') }}" alt="dashboard" class="me-2"
@@ -100,7 +100,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('profile') ? 'active' : '' }}">
                 <img src="{{ asset('images/circle_person.svg') }}" alt="profile" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="/profile">{{ Auth::user()->getFullName() }}</a>
+                <a class="nav-link" href="{{route('logout')}}">{{ Auth::user()->getFullName() }}</a>
             </li>
         </ul>
     @else
@@ -113,7 +113,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('appointment') ? 'active' : '' }}">
                 <img src="{{ asset('images/appointment.svg') }}" alt="dashboard" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="#">Lịch hẹn</a>
+                <a class="nav-link" href=" {{ route('appointment') }}">Lịch hẹn</a>
             </li>
             <li class="nav-item d-flex align-items-center {{ request()->is('bill') ? 'active' : '' }}">
                 <img src="{{ asset('images/bill.svg') }}" alt="dashboard" class="me-2"
@@ -123,7 +123,7 @@
             <li class="nav-item d-flex align-items-center {{ request()->is('profile') ? 'active' : '' }}">
                 <img src="{{ asset('images/circle_person.svg') }}" alt="profile" class="me-2"
                      style="width: 24px; height: 24px; filter: invert(27%) sepia(100%) saturate(7483%) hue-rotate(202deg) brightness(100%) contrast(101%);">
-                <a class="nav-link" href="/profile">{{ Auth::user()->getFullName() }}</a>
+                <a class="nav-link" href="{{route('logout')}}">{{ Auth::user()->getFullName() }}</a>
             </li>
         </ul>
     @endif
