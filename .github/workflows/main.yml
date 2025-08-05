@@ -9,7 +9,7 @@ jobs:
       runs-on: macos-lastest
   steps:
     - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
     - name: Install Homebrew
       run: |
         if ! command -v brew &> /dev/null; then
